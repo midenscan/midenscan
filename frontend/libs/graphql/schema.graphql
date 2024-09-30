@@ -1,0 +1,327 @@
+type Account {
+  account_id: AccountString!
+  account_type: MidenAccountType
+  block_hash: DigestString!
+  block_number: BigIntNumber!
+  code_procedure: [String!]
+  id: ID!
+  is_faucet: Boolean
+  is_private: Boolean!
+  latest_account_update: AccountUpdate!
+}
+
+type AccountConnection {
+  edges: [AccountEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AccountEdge {
+  cursor: String!
+  node: Account!
+}
+
+input AccountInput {
+  account_id: AccountString!
+}
+
+"""GraphQL Scalar representing a account hex str"""
+scalar AccountString
+
+type AccountUpdate {
+  account: Account!
+  account_id: AccountString!
+  account_update_id: String!
+  block_hash: DigestString!
+  block_number: BigIntNumber!
+  id: ID!
+  nonce: BigIntNumber
+  state_hash: DigestString!
+}
+
+type AccountUpdateConnection {
+  edges: [AccountUpdateEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AccountUpdateEdge {
+  cursor: String!
+  node: AccountUpdate!
+}
+
+input AccountUpdateInput {
+  account_update_id: String!
+}
+
+input AccountUpdatesInput {
+  block_hash: DigestString
+  order_by: OrderBy!
+  sort_by: AccountUpdatesSortBy!
+}
+
+enum AccountUpdatesSortBy {
+  commited_at
+}
+
+type AccountVaultAsset {
+  account_id: AccountString!
+  account_vault_asset_id: String!
+  amount: BigIntNumber!
+  faucet_id: AccountString!
+  id: ID!
+}
+
+type AccountVaultAssetConnection {
+  edges: [AccountVaultAssetEdge!]!
+  pageInfo: PageInfo!
+}
+
+type AccountVaultAssetEdge {
+  cursor: String!
+  node: AccountVaultAsset!
+}
+
+input AccountVaultAssetsInput {
+  account_id: AccountString!
+}
+
+input AccountsInput {
+  order_by: OrderBy!
+  sort_by: AccountsSortBy!
+}
+
+enum AccountsSortBy {
+  timestamp
+}
+
+"""GraphQL Scalar representing the Number type."""
+scalar BigIntNumber
+
+"""GraphQL Scalar representing the BigInt type."""
+scalar BigIntStringScalar
+
+type Block {
+  account_root: DigestString!
+  block_hash: DigestString!
+  block_number: BigIntNumber!
+  chain_root: DigestString!
+  id: ID!
+  note_root: DigestString!
+  nullifier_root: DigestString!
+  number_of_account_updates: Int!
+  number_of_notes: Int!
+  number_of_transactions: BigIntNumber!
+  proof_hash: DigestString!
+  sub_hash: DigestString!
+  timestamp: BigIntNumber!
+  tx_hash: DigestString!
+  version: BigIntNumber!
+}
+
+type BlockConnection {
+  edges: [BlockEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BlockEdge {
+  cursor: String!
+  node: Block!
+}
+
+input BlockInput {
+  block_identifier: String!
+}
+
+input BlocksInput {
+  order_by: OrderBy!
+  sort_by: BlocksSortBy!
+}
+
+enum BlocksSortBy {
+  timestamp
+}
+
+"""GraphQL Scalar representing a digest hex str"""
+scalar DigestString
+
+enum MidenAccountType {
+  FungibleFaucet
+  NonFungibleFaucet
+  RegularAccountImmutableCode
+  RegularAccountUpdatableCode
+}
+
+enum MidenNoteStatus {
+  COMMITTED
+  CONSUMED
+  UNKNOWN
+}
+
+enum MidenNoteType {
+  Encrypted
+  Private
+  Public
+}
+
+type Note {
+  block_batch_index: BigIntNumber!
+  block_hash: DigestString!
+  block_note_index_in_batch: BigIntNumber!
+  block_number: BigIntNumber!
+  id: ID!
+  inputs: NoteInputsScalar
+  note_aux: BigIntNumber!
+  note_id: DigestString!
+  note_status: MidenNoteStatus!
+  note_tag: BigIntNumber!
+  note_type: MidenNoteType!
+  nullifier: DigestString
+  recipient: DigestString
+  script_code: String
+  sender: AccountString!
+}
+
+type NoteAsset {
+  amount: BigIntNumber!
+  faucet_id: AccountString!
+  id: ID!
+  note_asset_id: String!
+  note_id: DigestString!
+}
+
+type NoteAssetConnection {
+  edges: [NoteAssetEdge!]!
+  pageInfo: PageInfo!
+}
+
+type NoteAssetEdge {
+  cursor: String!
+  node: NoteAsset!
+}
+
+input NoteAssetsInput {
+  note_id: DigestString!
+}
+
+type NoteConnection {
+  edges: [NoteEdge!]!
+  pageInfo: PageInfo!
+}
+
+type NoteEdge {
+  cursor: String!
+  node: Note!
+}
+
+input NoteInput {
+  note_id: DigestString!
+}
+
+"""GraphQL Scalar representing a notes inputs"""
+scalar NoteInputsScalar
+
+input NotesInput {
+  block_hash: DigestString
+  order_by: OrderBy!
+  sort_by: NotesSortBy!
+}
+
+enum NotesSortBy {
+  commited_at
+}
+
+type Nullifier {
+  block_hash: DigestString!
+  block_number: BigIntNumber!
+  id: ID!
+  note: Note
+  nullifier: DigestString!
+}
+
+input NullifierInput {
+  nullifier: DigestString!
+}
+
+enum OrderBy {
+  asc
+  desc
+}
+
+type OverviewStats {
+  total_count_account_updates: BigIntStringScalar!
+  total_count_accounts: BigIntStringScalar!
+  total_count_blocks: BigIntStringScalar!
+  total_count_notes: BigIntStringScalar!
+  total_count_nullifiers: BigIntStringScalar!
+  total_count_transactions: BigIntStringScalar!
+  transactions_per_second: Float!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  account(input: AccountInput!): Account!
+  accountUpdate(input: AccountUpdateInput!): AccountUpdate!
+  accountUpdates(after: String, before: String, first: Int, input: AccountUpdatesInput!, last: Int): AccountUpdateConnection!
+  accountVaultAssets(after: String, before: String, first: Int, input: AccountVaultAssetsInput!, last: Int): AccountVaultAssetConnection!
+  accounts(after: String, before: String, first: Int, input: AccountsInput!, last: Int): AccountConnection!
+  block(input: BlockInput!): Block!
+  blocks(after: String, before: String, first: Int, input: BlocksInput!, last: Int): BlockConnection!
+  note(input: NoteInput!): Note!
+  noteAssets(after: String, before: String, first: Int, input: NoteAssetsInput!, last: Int): NoteAssetConnection!
+  notes(after: String, before: String, first: Int, input: NotesInput!, last: Int): NoteConnection!
+  nullifier(input: NullifierInput!): Nullifier!
+  overviewStats: OverviewStats!
+  search(input: SearchInput!): SearchResult!
+  transaction(input: TransactionInput!): Transaction!
+  transactions(after: String, before: String, first: Int, input: TransactionsInput!, last: Int): TransactionConnection!
+}
+
+input SearchInput {
+  filter: String!
+}
+
+type SearchResult {
+  account: Account
+  block: Block
+  note: Note
+  nullifier: Nullifier
+  transaction: Transaction
+}
+
+type Transaction {
+  account_id: AccountString!
+  block_hash: DigestString!
+  block_number: BigIntNumber!
+  id: ID!
+  transaction_id: DigestString!
+}
+
+type TransactionConnection {
+  edges: [TransactionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TransactionEdge {
+  cursor: String!
+  node: Transaction!
+}
+
+input TransactionInput {
+  transaction_id: DigestString!
+}
+
+input TransactionsInput {
+  account_id: AccountString
+  block_hash: DigestString
+  order_by: OrderBy!
+  sort_by: TransactionsSortBy!
+}
+
+enum TransactionsSortBy {
+  commited_at
+}

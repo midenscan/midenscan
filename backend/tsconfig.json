@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2020"
+    ],
+    "target": "es2020",
+
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "outDir": ".build",
+
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "preserveConstEnums": true,
+
+    "paths": {
+      "*": ["./*"]
+    },
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules",
+    ".webpack/**/*",
+    "*.config.js"
+  ],
+  "include": ["src/**/*.ts"],
+  "files": [
+    "src/global.d.ts"
+  ],
+}
+

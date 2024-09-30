@@ -1,0 +1,28 @@
+{
+  "name": "midenscan-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "NODE_PATH=./src ts-node --project tsconfig.json ./src/apps/graphql/index.ts",
+    "db-generate-types": "ts-node --project tsconfig.json ./db/generateType.ts"
+  },
+  "devDependencies": {
+    "@rmp135/sql-ts": "^1.16.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.10.8",
+    "@grpc/proto-loader": "^0.7.13",
+    "@types/binary-parser": "^1.5.5",
+    "apollo-server": "^3.13.0",
+    "binary-parser": "^2.2.1",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-relay": "^0.9.0",
+    "knex": "^2.4.0",
+    "pg": "^8.9.0",
+    "reflect-metadata": "^0.1.13",
+    "serialize-error": "8.1.0",
+    "type-graphql": "1.1.1",
+    "dotenv": "^16.0.1"
+  }
+}
